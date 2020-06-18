@@ -1,17 +1,24 @@
+var resButton = document.getElementById('reset-button');
 var table = document.getElementById('mytable');
 var rows = document.querySelectorAll('tr');
-var cells = document.querySelectorAll('td');
-
+var cells = mytable.querySelectorAll('td');
 var matrix = [];
 var firstCell = Array.prototype.slice.call(cells, 0, 3);
+var scoreTable = document.getElementById('score');
+var playerX = document.getElementById('playerx');
+var playerO = document.getElementById('playero');
+var scoreX = 0;
+var scoreO = 0;
 
 matrix.push(
   Array.prototype.slice.call(cells, 0, 3),
   Array.prototype.slice.call(cells, 3, 6),
   Array.prototype.slice.call(cells, 6, 9)
 );
-
-counter = 0;
+playerX.innerText = scoreX;
+playerO.innerText = scoreO;
+var score = 0;
+var counter = 0;
 var state = true;
 function tacTicToe() {
   if (state === true) {
@@ -19,7 +26,11 @@ function tacTicToe() {
       counter++;
       this.innerHTML = addXorO(counter);
     }
-    console.log(counter);
+    if (counter === 9) {
+      console.log(counter);
+      state = false;
+      return create('Draw');
+    }
 
     for (var i = 0; i <= 2; i++) {
       if (
@@ -52,17 +63,17 @@ function tacTicToe() {
 
         if (counter % 2 === 0) {
           state = false;
-          return create('O Has Won');
+          scoreO = scoreO + 1;
+          playerO.innerText = scoreO;
+          return create('Player O Has Won');
         } else if (counter % 2 !== 0) {
           state = false;
-          return create('X Has Won');
+          scoreX = scoreX + 1;
+          playerX.innerText = scoreX;
+          // finalScore(scoreX, playerX);
+          return create('Player X Has Won');
         }
       }
-    }
-    if (counter === 9) {
-      console.log(counter);
-      state = false;
-      return create('Draw');
     }
   }
 }
@@ -83,4 +94,18 @@ function create(text) {
   parag.appendChild(node);
   var elem = document.getElementById('finalmsg');
   elem.appendChild(parag);
+}
+
+resButton.onclick = function () {
+  counter = 0;
+  for (var i in cells) {
+    cells[i].innerText = '';
+  }
+  state = true;
+  scoreTable.nextElementSibling.remove();
+};
+
+function finalScore(score, player) {
+  score = score + 1;
+  player.innerText = score;
 }
