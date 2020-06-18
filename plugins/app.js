@@ -1,24 +1,26 @@
+var table = document.getElementById('mytable');
 var rows = document.querySelectorAll('tr');
 var cells = document.querySelectorAll('td');
-console.log(cells);
+
 var matrix = [];
 var firstCell = Array.prototype.slice.call(cells, 0, 3);
-console.log(firstCell);
+
 matrix.push(
   Array.prototype.slice.call(cells, 0, 3),
   Array.prototype.slice.call(cells, 3, 6),
   Array.prototype.slice.call(cells, 6, 9)
 );
-console.log(matrix);
-console.log(matrix[0][0].innerText);
+
 counter = 0;
-var cnt = 0;
-cells.forEach((c) => {
-  c.addEventListener('click', function () {
+var state = true;
+function tacTicToe() {
+  if (state === true) {
     if (this.innerHTML === '') {
       counter++;
       this.innerHTML = addXorO(counter);
     }
+    console.log(counter);
+
     for (var i = 0; i <= 2; i++) {
       if (
         (matrix[i][0].innerText === 'X' &&
@@ -46,10 +48,26 @@ cells.forEach((c) => {
           matrix[1][1].innerText === 'O' &&
           matrix[2][0].innerText === 'O')
       ) {
-        alert('Congratulations');
+        // table.parentNode.removeChild(table);
+
+        if (counter % 2 === 0) {
+          state = false;
+          return create('O Has Won');
+        } else if (counter % 2 !== 0) {
+          state = false;
+          return create('X Has Won');
+        }
       }
     }
-  });
+    if (counter === 9) {
+      console.log(counter);
+      state = false;
+      return create('Draw');
+    }
+  }
+}
+cells.forEach((c) => {
+  c.addEventListener('click', tacTicToe);
 });
 
 function addXorO(counter) {
@@ -57,4 +75,12 @@ function addXorO(counter) {
     return 'O';
   }
   return 'X';
+}
+
+function create(text) {
+  var parag = document.createElement('p');
+  var node = document.createTextNode(text);
+  parag.appendChild(node);
+  var elem = document.getElementById('finalmsg');
+  elem.appendChild(parag);
 }
