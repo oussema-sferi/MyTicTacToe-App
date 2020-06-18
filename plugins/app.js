@@ -5,8 +5,10 @@ var cells = mytable.querySelectorAll('td');
 var matrix = [];
 var firstCell = Array.prototype.slice.call(cells, 0, 3);
 var scoreTable = document.getElementById('score');
+var parag = document.getElementById('finalmsg');
 var playerX = document.getElementById('playerx');
 var playerO = document.getElementById('playero');
+var finalMsg = document.getElementById('finalmsg');
 var scoreX = 0;
 var scoreO = 0;
 
@@ -89,11 +91,11 @@ function addXorO(counter) {
 }
 
 function create(text) {
-  var parag = document.createElement('p');
-  var node = document.createTextNode(text);
-  parag.appendChild(node);
-  var elem = document.getElementById('finalmsg');
-  elem.appendChild(parag);
+  parag.innerText = text;
+  // var node = document.createTextNode(text);
+  // parag.appendChild(node);
+  // var elem = document.getElementById('finalmsg');
+  // elem.appendChild(parag);
 }
 
 resButton.onclick = function () {
@@ -102,7 +104,7 @@ resButton.onclick = function () {
     cells[i].innerText = '';
   }
   state = true;
-  scoreTable.nextElementSibling.remove();
+  parag.innerText = '';
 };
 
 function finalScore(score, player) {
