@@ -21,17 +21,34 @@ cells.forEach((c) => {
     }
     for (var i = 0; i <= 2; i++) {
       if (
-        cells[0].innerText === 'X' &&
-        cells[1].innerText === 'X' &&
-        cells[2].innerText === 'X'
+        (matrix[i][0].innerText === 'X' &&
+          matrix[i][1].innerText === 'X' &&
+          matrix[i][2].innerText === 'X') ||
+        (matrix[i][0].innerText === 'O' &&
+          matrix[i][1].innerText === 'O' &&
+          matrix[i][2].innerText === 'O') ||
+        (matrix[0][i].innerText === 'X' &&
+          matrix[1][i].innerText === 'X' &&
+          matrix[2][i].innerText === 'X') ||
+        (matrix[0][i].innerText === 'O' &&
+          matrix[1][i].innerText === 'O' &&
+          matrix[2][i].innerText === 'O') ||
+        (matrix[0][0].innerText === 'X' &&
+          matrix[1][1].innerText === 'X' &&
+          matrix[2][2].innerText === 'X') ||
+        (matrix[0][0].innerText === 'O' &&
+          matrix[1][1].innerText === 'O' &&
+          matrix[2][2].innerText === 'O') ||
+        (matrix[0][2].innerText === 'X' &&
+          matrix[1][1].innerText === 'X' &&
+          matrix[2][0].innerText === 'X') ||
+        (matrix[0][2].innerText === 'O' &&
+          matrix[1][1].innerText === 'O' &&
+          matrix[2][0].innerText === 'O')
       ) {
-        console.log('thank you');
+        alert('Congratulations');
       }
     }
-
-    // if (cnt === 3) {
-    //
-    // }
   });
 });
 
